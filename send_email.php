@@ -16,9 +16,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Send email
     if (mail($to, $subject, $body, $headers)) {
-        echo "Message sent successfully!";
-    } else {
-        echo "Failed to send message.";
-    }
+      echo "<script>alert('Message sent successfully!'); window.location.href='index.html';</script>";
+  } else {
+      echo "<script>alert('Failed to send message.'); window.location.href='index.html';</script>";
+  }
 }
 ?>
