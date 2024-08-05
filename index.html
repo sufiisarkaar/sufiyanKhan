@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="assets/css/meyawo.css">
     <link rel="stylesheet" href="animate.css">
 
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@beta/bundled/locomotive-scroll.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
@@ -22,6 +23,32 @@
     })();
     
 </script>
+
+<script type="text/javascript"  src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+    <script type="text/javascript">
+        (function(){
+            emailjs.init("0KCaxcV2agrbT4CQA"); // Replace with your EmailJS user ID
+        })();
+        
+        function sendEmail(e) {
+            e.preventDefault();
+
+            var templateParams = {
+                name: document.getElementById("cname").value,
+                email: document.getElementById("cemail").value,
+                message: document.getElementById("cmessage").value
+            };
+
+            emailjs.send("service_a2h2inq", "template_lv3o28c", templateParams)
+                .then(function(response) {
+                    alert('Message sent successfully!');
+                    window.location.href = 'index.html';
+                }, function(error) {
+                    alert('Failed to send message. Error: ' + JSON.stringify(error));
+                });
+        }
+    </script>
 
 </head>
 
@@ -61,7 +88,7 @@
     </nav><!-- End of Page Navbar -->
 
     <!-- page header -->
-    <header  data-scroll  data-section-scroll data-scroll-speed="-.2" id="home" class="header">
+    <header  id="home" class="header">
         <div class="overlay"></div>
         <div class="header-content container w-full">
             <h1 class="header-title ">
@@ -77,7 +104,7 @@
 
 
     <!-- about section -->
-    <section  data-scroll  data-section-scroll data-scroll-speed="-.6" class="section w-full" id="about">
+    <section   class="section w-full" id="about">
         <!-- container -->
         <div class="container text-center">
             <!-- about wrapper -->
@@ -305,7 +332,7 @@
     <!-- end of pricing section -->
 
     <!-- section -->
-    <section  data-scroll  data-section-scroll data-scroll-speed=".7" class="section-sm bg-primary">
+    <section  class="section-sm bg-primary">
         <!-- container -->
         <div class="container text-center text-sm-left">
             <!-- row -->
@@ -427,22 +454,21 @@
     <!-- end of blog section -->
 
     <!-- contact section -->
-    <section  data-scroll  data-section-scroll data-scroll-speed=".6" class="section" id="contact">
+    <section data-scroll data-section-scroll data-scroll-speed="-.1" class="section" id="contact">
         <div class="container text-center">
             <p class="section-subtitle">How can you communicate?</p>
             <h6 class="section-title mb-5">Contact Me</h6>
             <!-- contact form -->
-            <form action="send_email.php"  method="post" class="contact-form col-md-10 col-lg-8 m-auto">
+            <form onsubmit="sendEmail(event)" class="contact-form col-md-10 col-lg-8 m-auto">
                 <div class="form-row">
                     <div class="form-group col-sm-6">
-                        <input type="text" name="name" size="50" class="form-control" placeholder="Your Name" required>
+                        <input type="text" name="name" id="cname" size="50" class="form-control" placeholder="Your Name" required>
                     </div>
                     <div class="form-group col-sm-6">
-                        <input type="email" name="email" class="form-control" placeholder="Enter Email" requried>
+                        <input type="email" name="email" id="cemail" class="form-control" placeholder="Enter Email" required>
                     </div>
                     <div class="form-group col-sm-12">
-                        <textarea name="message" id="comment" rows="6" class="form-control"
-                            placeholder="Write Something"></textarea>
+                        <textarea name="message" id="cmessage" rows="6" class="form-control" placeholder="Write Something" required></textarea>
                     </div>
                     <div class="form-group col-sm-12 mt-3">
                         <input type="submit" value="Send Message" class="btn btn-outline-primary rounded">
