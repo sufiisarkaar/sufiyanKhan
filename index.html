@@ -12,7 +12,7 @@
     <!-- Bootstrap + Meyawo main styles -->
     <link rel="stylesheet" href="assets/css/meyawo.css">
     <link rel="stylesheet" href="animate.css">
-
+    <link rel="icon" href="./assets/imgs/sufiyanLogo.png" type="image/x-icon">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@beta/bundled/locomotive-scroll.min.js"></script>
@@ -27,27 +27,48 @@
 <script type="text/javascript"  src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
     <script type="text/javascript">
-        (function(){
-            emailjs.init("0KCaxcV2agrbT4CQA"); // Replace with your EmailJS user ID
-        })();
-        
-        function sendEmail(e) {
-            e.preventDefault();
+       document.addEventListener('DOMContentLoaded', function() {
+    emailjs.init("0KCaxcV2agrbT4CQA"); // Replace with your EmailJS user ID
 
-            var templateParams = {
-                name: document.getElementById("cname").value,
-                email: document.getElementById("cemail").value,
-                message: document.getElementById("cmessage").value
-            };
+    window.sendEmail = function(e) {
+        e.preventDefault();
 
-            emailjs.send("service_a2h2inq", "template_lv3o28c", templateParams)
-                .then(function(response) {
-                    alert('Message sent successfully!');
-                    window.location.href = 'index.html';
-                }, function(error) {
-                    alert('Failed to send message. Error: ' + JSON.stringify(error));
-                });
-        }
+        var senderName = document.getElementById("cname").value;
+        var senderEmail = document.getElementById("cemail").value;
+        var senderMessage = document.getElementById("cmessage").value;
+
+        var templateParams = {
+            name: senderName,
+            email: senderEmail,
+            message: senderMessage
+        };
+
+        // Send email to yourself
+        emailjs.send("service_a2h2inq", "template_lv3o28c", templateParams)
+            .then(function(response) {
+                console.log('Message sent successfully to yourself!');
+            }, function(error) {
+                console.error('Failed to send message to yourself. Error: ' + JSON.stringify(error));
+            });
+
+        // Send auto-reply to the sender
+        var autoReplyParams = {
+            name: senderName,
+            message: senderMessage,
+            to_email: senderEmail // Add the recipient's email here
+        };
+
+        emailjs.send("service_a2h2inq", "template_8j5ns2p", autoReplyParams)
+            .then(function(response) {
+                alert('Message sent successfully! An auto-reply has been sent to the sender.');
+                window.location.href = 'index.html';
+            }, function(error) {
+                alert('Failed to send auto-reply. Error: ' + JSON.stringify(error));
+            });
+    }
+});
+
+
     </script>
 
 </head>
@@ -110,7 +131,7 @@
             <!-- about wrapper -->
             <div class="about">
                 <div class="about-img-holder">
-                    <img src="assets/imgs/man.png" class="about-img"
+                    <img src="./assets/imgs/sufiyanLogo.png" class="about-img"
                         alt="Download free bootstrap 4 landing page, free boootstrap 4 templates, Download free bootstrap 4.1 landing page, free boootstrap 4.1.1 templates, meyawo Landing page">
                 </div>
                 <div class="about-caption">
